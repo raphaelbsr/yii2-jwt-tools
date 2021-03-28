@@ -69,7 +69,7 @@ final class JWTPayload
      * @param array $payloadAttrs
      * @return static
      */
-    public static function build(array $payloadAttrs = []): self
+    public static function build(array $payloadAttrs = [])
     {
         return new self($payloadAttrs);
     }
@@ -93,7 +93,7 @@ final class JWTPayload
      * @param $value
      * @return $this
      */
-    public function addExtraAttribute(string $name, $value): self
+    public function addExtraAttribute(string $name, $value)
     {
         $this->extraAttributes[$name] = $value;
         return $this;
@@ -103,7 +103,7 @@ final class JWTPayload
      * @param string | int $sub
      * @return JWTPayload
      */
-    public function setSub($sub): JWTPayload
+    public function setSub($sub)
     {
         $this->sub = $sub;
         return $this;
@@ -112,7 +112,7 @@ final class JWTPayload
     /**
      * @return array
      */
-    public function getData(): array
+    public function getData()
     {
         return array_merge([
             'sub' => $this->sub,
@@ -127,7 +127,7 @@ final class JWTPayload
     /**
      * @return string
      */
-    private function generateHash(): string
+    private function generateHash()
     {
         $hash = md5(uniqid(rand() . "", true));
         return substr($hash, 0, 15);

@@ -62,7 +62,7 @@ final class JWTTools
     /**
      * @return string
      */
-    public function getAlgorithm(): string
+    public function getAlgorithm()
     {
         return $this->algorithm;
     }
@@ -70,7 +70,7 @@ final class JWTTools
     /**
      * @return string
      */
-    public function getSecretKey(): string
+    public function getSecretKey()
     {
         return $this->secretKey;
     }
@@ -78,7 +78,7 @@ final class JWTTools
     /**
      * @return int
      */
-    public function getExpiration(): int
+    public function getExpiration()
     {
         return $this->expiration;
     }
@@ -86,7 +86,7 @@ final class JWTTools
     /**
      * @return JWTPayload
      */
-    public function getPayload(): JWTPayload
+    public function getPayload()
     {
         return $this->payload;
     }
@@ -96,7 +96,7 @@ final class JWTTools
      * @param  array  $options
      * @return JWTTools
      */
-    public static function build(string $secretKey, array $options = []): self
+    public static function build(string $secretKey, array $options = [])
     {
         return new self($secretKey, $options);
     }
@@ -107,7 +107,7 @@ final class JWTTools
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function withModel(ActiveRecord $model, array $attributes = []): self
+    public function withModel(ActiveRecord $model, array $attributes = [])
     {
         $this->model = $model;
         $this->payload->setSub($this->model->getPrimaryKey());
@@ -131,7 +131,7 @@ final class JWTTools
      * @return string
      * @throws Exception
      */
-    public function getJWT(): string
+    public function getJWT()
     {
         return JWT::encode($this->payload->getData(), $this->secretKey, $this->algorithm, $this->payload->get('sub'));
     }
@@ -140,7 +140,7 @@ final class JWTTools
      * @param  string $token
      * @return stdClass
      */
-    public function decodeToken(string $token): stdClass
+    public function decodeToken(string $token)
     {
         return JWT::decode($token, $this->secretKey, [$this->algorithm]);
     }
@@ -149,7 +149,7 @@ final class JWTTools
      * @param  string $token
      * @return bool
      */
-    public function signatureIsValid(string $token): bool
+    public function signatureIsValid(string $token)
     {
         list($header, $payload, $signatureProvided) = explode(".", $token);
 
@@ -168,7 +168,7 @@ final class JWTTools
      * @return bool
      * @throws Exception
      */
-    public function tokenIsExpired(string $token): bool
+    public function tokenIsExpired(string $token)
     {
         $decodedToken = $this->decodeToken($token);
         $now = new DateTime();
